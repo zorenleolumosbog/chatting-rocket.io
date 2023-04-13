@@ -27,7 +27,7 @@ export default {
 
         socket.on('message', (data) => {
             if (data.senderId && data.recipientId) {
-                // data.seen = true;
+                data.seen = false;
                 messages.push(data);
                 
                 // socket.emit('messageSeen', messages, data);
