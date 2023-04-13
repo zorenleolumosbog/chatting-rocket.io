@@ -14,7 +14,11 @@ io.on('connection', (socket) => {
   socket.on('join', (userId) => {
     console.log(`user joined: ${userId}`);
     socket.join(userId);
-  })
+  });
+
+  socket.on('typing', (state) => {
+    io.to(state.recipientId).emit('typing', state.senderId)
+  });
 
   socket.on('message', (state) => {
     console.log(`message: ${state.message}`);
@@ -25,11 +29,16 @@ io.on('connection', (socket) => {
     } else {
       io.emit('message', state.message);
     }
-  })
+  });
+
+  socket.on('messageSeen', (messages, messageId) => {
+    messages.find(message => message.id == messageId).seen = true;
+    io.emit('messageSeen', messages, messageId);
+  });
 
   socket.on('disconnect', () => {
     console.log('user disconnected');
-  })
+  });
 })
 
 server.listen(3000, () => {

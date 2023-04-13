@@ -43,8 +43,10 @@ export default {
       <div class="col-md-4">
         <h1>Chat</h1>
         <div class="shadow p-3 mb-1 bg-body-tertiary rounded">
-          <ul>
-            <li v-for="message in state.messages" :key="message">{{ message }}</li>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" v-for="message in state.messages" :key="message">
+              {{ message }}
+            </li>
           </ul>
         </div>
         <form @submit.prevent="sendMessage">
