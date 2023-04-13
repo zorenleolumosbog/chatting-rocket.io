@@ -9,15 +9,26 @@ const io = require('socket.io')(server, {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected')
+  console.log('a user connected');
 
-  socket.on('message', (message) => {
-    console.log(`message: ${message}`)
-    io.emit('message', message)
+  socket.on('join', (userId) => {
+    console.log(`user joined: ${userId}`);
+    socket.join(userId);
+  })
+
+  socket.on('message', (state) => {
+    console.log(`message: ${state.message}`);
+
+    if(state.recipientId) {
+      io.to(state.senderId).emit('message', state)
+      io.to(state.recipientId).emit('message', state)
+    } else {
+      io.emit('message', state.message);
+    }
   })
 
   socket.on('disconnect', () => {
-    console.log('user disconnected')
+    console.log('user disconnected');
   })
 })
 

@@ -22,8 +22,8 @@ export default {
 
     const sendMessage = () => {
       if (state.message) {
-        socket.emit('message', state.message)
-        state.message = ''
+        socket.emit('message', state);
+        state.message = '';
       }
     }
 

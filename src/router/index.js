@@ -5,8 +5,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import('../views/TheHome.vue')
+      name: 'group-chat',
+      component: () => import('../views/GroupChat.vue')
+    },
+    {
+      path: '/private-chat',
+      name: 'private-chat',
+      component: () => import('../views/PrivateChat.vue')
     }
   ]
 })
